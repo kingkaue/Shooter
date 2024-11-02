@@ -43,9 +43,13 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(transform.position.x * -1, transform.position.y, 0);
         }
 
-        if (transform.position.y > 8f || transform.position.y <= -8f)
+        if (transform.position.y > 0f)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y * -1, 0);
+            transform.position = new Vector3(transform.position.x, 0f, 0);
+        }
+        else if (transform.position.y < -4f)
+        {
+            transform.position = new Vector3(transform.position.x, -4f, 0);
         }
     }
 
@@ -55,7 +59,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //create a bullet object at my position with my rotation
-            Instantiate(bullet, transform.position + new Vector3(0, 1, 0), Quaternion.identity); 
+            Instantiate(bullet, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
         }
     }
 
