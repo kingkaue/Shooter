@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private float speed;
     private float horizontalScreenLimit;
     private float verticalScreenLimit;
-    private int lives;
+    public int lives;
 
     public GameObject explosion;
 
