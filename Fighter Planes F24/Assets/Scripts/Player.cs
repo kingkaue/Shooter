@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private float speed;
     private float horizontalScreenLimit;
     private float verticalScreenLimit;
-    private int lives;
+    public int lives;
 
     public GameObject explosion;
 
@@ -61,10 +61,24 @@ public class Player : MonoBehaviour
     public void LoseALife()
     {
         lives--;
+        GameObject.Find("Game Manager").GetComponent<GameManager>().UpdateLives(lives);
         if (lives == 0)
         {
             Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
+        }
+    }
+
+    public void GainALife()
+    {
+        if (lives < 3)
+        {
+            lives++;
+            GameObject.Find("Game Manager").GetComponent<GameManager>().UpdateLives(lives);
+        }
+        else
+        {
+            GameObject.Find("Game Manager").GetComponent<GameManager>().EarnScore(1);
         }
     }
 }

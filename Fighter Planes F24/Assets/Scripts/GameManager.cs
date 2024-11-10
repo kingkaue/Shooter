@@ -15,9 +15,13 @@ public class GameManager : MonoBehaviour
     public GameObject enemy2;
     public GameObject coin;
     public GameObject coinPickup;
+    public GameObject health;
+    public GameObject healthPickup;
     private int score;
+    private int lives;
 
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI livesText;
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +30,12 @@ public class GameManager : MonoBehaviour
         InvokeRepeating("CreateEnemy", 1f, 3f);
         InvokeRepeating("CreateEnemy2", 5f, 7f);
         InvokeRepeating("CreateCoin", 3f, Random.Range(3f, 8f));
+        InvokeRepeating("CreateHealth", 3f, Random.Range(3f, 8f));
         CreateSky();
         score = 0;
         scoreText.text = "Score: " + score;
+        lives = 3;
+        livesText.text = "Lives: " + lives;
     }
 
     // Update is called once per frame
@@ -70,5 +77,19 @@ public class GameManager : MonoBehaviour
     public void CoinPickup()
     {
         Instantiate(coinPickup, transform.position, Quaternion.identity);
+    }
+
+    public void UpdateLives(int howMuch)
+    {
+        livesText.text = "Lives: " + howMuch;
+    }
+    public void CreateHealth()
+    {
+        Instantiate(health, new Vector3(Random.Range(-7.5f, 7.5f), Random.Range(4f, -4f), 0), Quaternion.identity);
+    }
+
+    public void HealthPickup()
+    {
+        Instantiate(healthPickup, transform.position, Quaternion.identity);
     }
 }

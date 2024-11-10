@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class HealthUp : MonoBehaviour
 {
     void Start()
     {
@@ -12,8 +12,8 @@ public class Coin : MonoBehaviour
     {
         if (whatDidIHit.tag == "Player")
         {
-            GameObject.Find("Game Manager").GetComponent<GameManager>().EarnScore(1);
-            GameObject.Find("Game Manager").GetComponent<GameManager>().CoinPickup();
+            GameObject.Find("Player(Clone)").GetComponent<Player>().GainALife();
+            GameObject.Find("Game Manager").GetComponent<GameManager>().HealthPickup();
             Destroy(this.gameObject);
         }
     }
