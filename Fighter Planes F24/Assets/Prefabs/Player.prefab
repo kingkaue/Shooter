@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: b71242d0b3eaaad43918f352dd508c98, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9433962, g: 0.89660543, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa58d16c4fab7d479bf38dfaa1da635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lives: 0
   explosion: {fileID: 5657586401340380355, guid: a18a454b270a2464e8157ec06ba8d69f, type: 3}
   bullet: {fileID: 8655423947009519334, guid: 4dea0cfd33aea984c8f1a75c838e3848, type: 3}
 --- !u!70 &5891984664515695293
@@ -176,13 +177,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0fce1cc1b1ca3ae409b2fea4561a16ff, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.059
+  m_Volume: 0.119
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 140
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
