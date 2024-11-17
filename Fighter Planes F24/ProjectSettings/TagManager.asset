@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Weapon
   - Coin
+  - Powerup
   layers:
   - Default
   - TransparentFX

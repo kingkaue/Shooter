@@ -18,8 +18,11 @@ public class GameManager : MonoBehaviour
     public GameObject coinPickup;
     public GameObject health;
     public GameObject healthPickup;
+    public GameObject powerup;
     private int score;
     private int lives;
+
+    public int cloudSpeed;
 
     private bool isPlayerAlive;
 
@@ -27,21 +30,24 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI restartText;
+    public TextMeshProUGUI powerupText;
 
     // Start is called before the first frame update
     void Start()
     {
         Instantiate(player, transform.position, Quaternion.identity);
-        InvokeRepeating("CreateEnemy", 1f, 3f);
-        InvokeRepeating("CreateEnemy2", 5f, 7f);
+        InvokeRepeating("CreateEnemy", 1f, 2f);
+        InvokeRepeating("CreateEnemy2", 3f, 4f);
         InvokeRepeating("CreateCoin", 3f, Random.Range(3f, 8f));
-        InvokeRepeating("CreateHealth", 3f, Random.Range(3f, 8f));
+        InvokeRepeating("CreateHealth", 3f, Random.Range(8f, 15f));
+        StartCoroutine(CreatePowerup());
         CreateSky();
         score = 0;
         scoreText.text = "Score: " + score;
         lives = 3;
         livesText.text = "Lives: " + lives;
         isPlayerAlive = true;
+        cloudSpeed = 1;
     }
 
     // Update is called once per frame
@@ -59,6 +65,13 @@ public class GameManager : MonoBehaviour
     {
         Instantiate(enemy2, new Vector3(Random.Range(-7.5f, 7.5f), 6.3f, 0), Quaternion.identity);
 
+    }
+
+    IEnumerator CreatePowerup()
+    {
+        Instantiate(powerup, new Vector3(Random.Range(-9f, 9f), 7.5f, 0), Quaternion.identity);
+        yield return new WaitForSeconds(Random.Range(4f, 9f));
+        StartCoroutine(CreatePowerup());
     }
 
     void CreateSky()
@@ -105,15 +118,22 @@ public class GameManager : MonoBehaviour
         CancelInvoke();
         gameOverText.gameObject.SetActive(true);
         restartText.gameObject.SetActive(true);
+        cloudSpeed = 0;
     }
 
     void Restart()
     {
         if(Input.GetKeyDown(KeyCode.R) && isPlayerAlive == false)
         {
-            SceneManager.LoadScene("Game");
+           SceneManager.LoadScene("Game");
         }
 
     }
+
+    public void UpdatePowerupText(string whichPowerup)
+    {
+        powerupText.text = whichPowerup;
+    }
+         
 
 }
