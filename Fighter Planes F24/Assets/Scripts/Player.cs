@@ -72,9 +72,9 @@ public class Player : MonoBehaviour
                     Instantiate(bullet, transform.position + new Vector3(0.5f, 1, 0), Quaternion.identity);
                     break;
                 case 3:
-                    Instantiate(bullet, transform.position + new Vector3(-0.5f, 1, 0), Quaternion.identity);
+                    Instantiate(bullet, transform.position + new Vector3(-0.5f, 1, 0), Quaternion.Euler(0, 0, 30f));
                     Instantiate(bullet, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-                    Instantiate(bullet, transform.position + new Vector3(0.5f, 1, 0), Quaternion.identity);
+                    Instantiate(bullet, transform.position + new Vector3(0.5f, 1, 0), Quaternion.Euler(0, 0, -30f));
                     break;
 
             }
