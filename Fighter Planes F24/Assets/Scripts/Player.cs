@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
 
     public GameObject thruster;
 
+    public GameObject shield;
+
+    private bool hasShield;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +34,7 @@ public class Player : MonoBehaviour
         verticalScreenLimit = 6.3f;
         lives = 3;
         shooting = 1;
+        hasShield = false;
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
@@ -78,13 +83,24 @@ public class Player : MonoBehaviour
                     break;
 
             }
+
         }
         
     }
 
     public void LoseALife()
     {
-        lives--;
+        if (hasShield == false)
+        {
+            lives--;
+        } else if (hasShield == true)
+        {
+            //lose the shield
+            hasShield = false;
+            shield.gameObject.SetActive(false);
+            //no longer have shield
+
+        }
         GameObject.Find("Game Manager").GetComponent<GameManager>().UpdateLives(lives);
         if (lives == 0)
         {
@@ -110,14 +126,16 @@ public class Player : MonoBehaviour
     IEnumerator SpeedPowerDown()
     {
         yield return new WaitForSeconds(3f);
-        thruster.gameObject.SetActive(false);
         speed = 6f;
+        thruster.gameObject.SetActive(false);
+        gameManager.UpdatePowerupText("");
     }
 
     IEnumerator ShootingPowerDown()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         shooting = 1;
+        gameManager.UpdatePowerupText("");
     }
 
     private void OnTriggerEnter2D(Collider2D whatDidIHit)
@@ -149,9 +167,11 @@ public class Player : MonoBehaviour
                 case 4:
                     //shield
                     gameManager.UpdatePowerupText("Picked up Shield!");
+                    shield.gameObject.SetActive(true);
+                    hasShield = true;
                     break;
             }
-        }
+        }   Destroy(whatDidIHit.gameObject);
     }
 
 }
