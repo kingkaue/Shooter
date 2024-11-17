@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private float verticalScreenLimit;
     public int lives;
 
+    public GameManager gameManager;
+
     public GameObject explosion;
 
     public GameObject bullet;
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour
         horizontalScreenLimit = 13f;
         verticalScreenLimit = 6.3f;
         lives = 3;
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -64,6 +67,7 @@ public class Player : MonoBehaviour
         GameObject.Find("Game Manager").GetComponent<GameManager>().UpdateLives(lives);
         if (lives == 0)
         {
+            gameManager.GameOver();
             Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
@@ -81,4 +85,7 @@ public class Player : MonoBehaviour
             GameObject.Find("Game Manager").GetComponent<GameManager>().EarnScore(1);
         }
     }
+    
+
+
 }
