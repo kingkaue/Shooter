@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
             }
 
         }
-        
+
     }
 
     public void LoseALife()
@@ -93,11 +93,13 @@ public class Player : MonoBehaviour
         if (hasShield == false)
         {
             lives--;
-        } else if (hasShield == true)
+        }
+        else if (hasShield == true)
         {
             //lose the shield
             hasShield = false;
             shield.gameObject.SetActive(false);
+            gameManager.PlayPowerDown();
             //no longer have shield
 
         }
@@ -129,6 +131,7 @@ public class Player : MonoBehaviour
         speed = 6f;
         thruster.gameObject.SetActive(false);
         gameManager.UpdatePowerupText("");
+        gameManager.PlayPowerDown();
     }
 
     IEnumerator ShootingPowerDown()
@@ -136,12 +139,14 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(3f);
         shooting = 1;
         gameManager.UpdatePowerupText("");
+        gameManager.PlayPowerDown();
     }
 
     private void OnTriggerEnter2D(Collider2D whatDidIHit)
     {
-        if(whatDidIHit.tag == "Powerup")
+        if (whatDidIHit.tag == "Powerup")
         {
+            gameManager.PlayPowerUp();
             int powerupType = Random.Range(1, 5); // this can be 1,2,3, or 4
             switch (powerupType)
             {
@@ -156,7 +161,7 @@ public class Player : MonoBehaviour
                     //double shot
                     shooting = 2;
                     gameManager.UpdatePowerupText("Picked up Double Shot!");
-                    StartCoroutine (ShootingPowerDown());
+                    StartCoroutine(ShootingPowerDown());
                     break;
                 case 3:
                     // tripple shot
@@ -171,7 +176,8 @@ public class Player : MonoBehaviour
                     hasShield = true;
                     break;
             }
-        }   Destroy(whatDidIHit.gameObject);
+        }
+        Destroy(whatDidIHit.gameObject);
     }
 
 }

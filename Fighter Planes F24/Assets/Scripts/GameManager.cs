@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject health;
     public GameObject healthPickup;
     public GameObject powerup;
+
+    public AudioClip powerUp;
+    public AudioClip powerDown;
+
     private int score;
     private int lives;
 
@@ -53,7 +57,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      Restart();    
+        Restart();
     }
 
     void CreateEnemy()
@@ -123,9 +127,9 @@ public class GameManager : MonoBehaviour
 
     void Restart()
     {
-        if(Input.GetKeyDown(KeyCode.R) && isPlayerAlive == false)
+        if (Input.GetKeyDown(KeyCode.R) && isPlayerAlive == false)
         {
-           SceneManager.LoadScene("Game");
+            SceneManager.LoadScene("Game");
         }
 
     }
@@ -134,6 +138,14 @@ public class GameManager : MonoBehaviour
     {
         powerupText.text = whichPowerup;
     }
-         
 
+    public void PlayPowerUp()
+    {
+        AudioSource.PlayClipAtPoint(powerUp, Camera.main.transform.position);
+    }
+
+    public void PlayPowerDown()
+    {
+        AudioSource.PlayClipAtPoint(powerDown, Camera.main.transform.position);
+    }
 }
